@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "use": "@vercel/static-build",
+      "src": "package.json"
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "@api_url"
+  }
+}
