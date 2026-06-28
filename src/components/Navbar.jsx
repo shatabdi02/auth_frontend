@@ -32,6 +32,18 @@ const Navbar = () => {
                                 >
                                     Profile
                                 </Link>
+                                <Link
+                                    to="/upload"
+                                    className="text-white hover:text-indigo-200 transition"
+                                >
+                                    Upload
+                                </Link>
+                                <Link
+                                    to="/gallery"
+                                    className="text-white hover:text-indigo-200 transition"
+                                >
+                                    Gallery
+                                </Link>
                                 <button
                                     onClick={handleLogout}
                                     className="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-800 transition"

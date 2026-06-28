@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Welcome from './pages/Welcome';
 import Profile from './pages/Profile';
+import Upload from './pages/Upload';
+import Gallery from './pages/Gallery';
 
 function App() {
     return (
@@ -31,6 +33,22 @@ function App() {
                             element={
                                 <ProtectedRoute>
                                     <Profile />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/upload"
+                            element={
+                                <ProtectedRoute>
+                                    <Upload />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/gallery"
+                            element={
+                                <ProtectedRoute>
+                                    <Gallery />
                                 </ProtectedRoute>
                             }
                         />
