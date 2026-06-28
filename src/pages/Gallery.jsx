@@ -6,6 +6,7 @@ const Gallery = () => {
     const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,7 +45,8 @@ const Gallery = () => {
                 <img
                     src={file.cloudinary_url}
                     alt={file.original_name}
-                    className="w-full h-48 object-cover rounded-t-lg"
+                    className="w-full h-48 object-cover rounded-t-lg cursor-pointer hover:opacity-90 transition"
+                    onClick={() => setSelectedFile(file)}
                 />
             );
         } else if (file.file_type.startsWith('video/')) {
@@ -52,7 +54,8 @@ const Gallery = () => {
                 <video
                     src={file.cloudinary_url}
                     controls
-                    className="w-full h-48 object-cover rounded-t-lg"
+                    className="w-full h-48 object-cover rounded-t-lg cursor-pointer hover:opacity-90 transition"
+                    onClick={() => setSelectedFile(file)}
                 />
             );
         }
@@ -122,6 +125,46 @@ const Gallery = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                )}
+
+                {/* Full screen modal */}
+                {selectedFile && (
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+                        onClick={() => setSelectedFile(null)}
+                    >
+                        <div className="relative max-w-7xl max-h-screen p-4">
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedFile(null);
+                                }}
+                                className="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 z-10"
+                            >
+                                &times;
+                            </button>
+                            {selectedFile.file_type.startsWith('image/') ? (
+                                <img
+                                    src={selectedFile.cloudinary_url}
+                                    alt={selectedFile.original_name}
+                                    className="max-w-full max-h-screen object-contain"
+                                />
+                            ) : selectedFile.file_type.startsWith('video/') ? (
+                                <video
+                                    src={selectedFile.cloudinary_url}
+                                    controls
+                                    autoPlay
+                                    className="max-w-full max-h-screen"
+                                />
+                            ) : null}
+                            <div className="absolute bottom-4 left-4 text-white bg-black bg-opacity-50 px-4 py-2 rounded">
+                                <p className="text-lg">{selectedFile.original_name}</p>
+                                <p className="text-sm text-gray-300">
+                                    {(selectedFile.file_size / 1024 / 1024).toFixed(2)} MB
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
